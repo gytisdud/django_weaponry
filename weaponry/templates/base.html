@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+
     {% block title %}
     <title>WEAPONRY</title>
     {% endblock %}
+
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link
@@ -28,9 +29,18 @@
 >
     <div class="container">
 
-        <a class="navbar-brand" href="/"><strong>
-            WEAPONRY</a
-        ></strong>
+        <a class="navbar-brand" href="/">
+            <strong>WEAPONRY</a>
+        </strong>
+        <style>
+      body {
+        background-color: #909090;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav>
         <button
                 class="navbar-toggler"
                 type="button"
@@ -49,9 +59,6 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'weapons' %}">Weapons</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'weapon_unit' %}">Weapon Units</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'soldiers' %}">Soldiers</a>

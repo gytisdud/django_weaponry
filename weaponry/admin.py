@@ -29,7 +29,6 @@ class WeaponAdmin(admin.ModelAdmin):
 
 
 
-
 # Register your models here.
 admin.site.register(Weapon, WeaponAdmin)
 admin.site.register(Soldier)

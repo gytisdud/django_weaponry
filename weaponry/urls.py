@@ -9,5 +9,4 @@ urlpatterns = [
     path('weapons/<int:pk>', views.WeaponDetailView.as_view(), name='weapon-detail'),
     path('search/', views.search, name='search'),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('weaponunits/', views.WeaponUnitListView.as_view(), name='weapon_unit'),
     ]

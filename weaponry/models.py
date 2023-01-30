@@ -27,7 +27,7 @@ class WeaponUnit(models.Model):
     weapon = models.ForeignKey('Weapon', on_delete=models.SET_NULL, null=True)
     due_back = models.DateField('Will be available', null=True, blank=True)
     # soldier = models.ForeignKey('Soldier', on_delete=models.SET_NULL, null=True)
-    operator = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    operator = models.ForeignKey('Soldier', on_delete=models.SET_NULL, null=True, blank=True)
     @property
     def is_overdue(self):
         if self.due_back and date.today() > self.due_back:

@@ -40,7 +40,7 @@ def soldier(request, soldier_id):
 
 class WeaponListView(generic.ListView):
     model = Weapon
-    paginate_by = 5
+    paginate_by = 6
     template_name = 'weapon_list.html'
 
 class WeaponDetailView(generic.DetailView):
@@ -54,10 +54,7 @@ def search(request):
     return render(request, 'search.html', {'weapons': search_results, 'query':
         query})
 
-class WeaponUnitListView(generic.ListView):
-    model = WeaponUnit
-    paginate_by = 6
-    template_name = 'weapon_unit.html'
+
 
 
 
