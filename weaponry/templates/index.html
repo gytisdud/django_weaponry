@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Weaponry</h1>
+<p>What's available right now:</p>
+<ul>
+    <li><strong>Weapons:</strong> {{ num_weapons }}</li>
+    <li><strong>Units:</strong> {{ num_units }}</li>
+    <li><strong>Available units:</strong> {{ num_units_available }}</li>
+    <li><strong>Soldiers:</strong> {{ num_soldiers }}</li>
+    <p>You visited this page {{ num_visits }} times.</p>
+</ul>
+{% endblock %}

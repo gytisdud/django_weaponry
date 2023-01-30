@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Search results for "{{query}}":</h1>
+</br>
+{% if weapons %}
+<ul>
+{% for weapon in weapons %}
+<li>
+<a href="{% url 'weapon-detail' weapon.id %}">{{ weapon.name }}</a>
+</li>
+{% endfor %}
+</ul>
+{% else %}
+<p>Nothins was found</p>
+{% endif %}
+{% endblock %}
