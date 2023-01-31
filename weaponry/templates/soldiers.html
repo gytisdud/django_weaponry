@@ -3,16 +3,16 @@
 {% block content %}
 <h1>Soldiers</h1>
 <p>Platoon 1</p>
-{% for soldier_obj in soldiers %}
-<li><a href="{% url 'soldier' soldier_obj.id%}">
-    {{ soldier_obj.rank }}. {{soldier_obj.last_name}}, {{soldier_obj.first_name}}</a></li>
+{% for operators in soldiers %}
+<li><a href="{% url 'soldier' operators.id%}">
+    <strong>{{ operators }} </strong></a></li>
 {% endfor %}
 <div class="container puslapiai">
 <nav aria-label="...">
 {% if soldiers.has_other_pages %}
 <ul class="pagination pagination-sm justify-content-end">
-{% for i in soldiers.paginator.page_range %}
-{% if soldiers.number == i %}
+{% for i in weaponunit.paginator.page_range %}
+{% if weaponunit.number == i %}
 <li class="page-item active">
 <a class="page-link" href">{{ i }}</a>
 </li>

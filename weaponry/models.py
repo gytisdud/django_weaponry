@@ -24,12 +24,12 @@ class Weapon(models.Model):
 class WeaponUnit(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text='Unique ID of a weapon')
     weapon = models.ForeignKey('Weapon', on_delete=models.SET_NULL, null=True)
-    date = models.DateField('Date', null=True, blank=True)
+    due_back = models.DateField('Date', null=True, blank=True)
     # soldier = models.ForeignKey('Soldier', on_delete=models.SET_NULL, null=True)
     operator = models.ForeignKey('Soldier', on_delete=models.SET_NULL, null=True, blank=True)
     @property
     def is_overdue(self):
-        if self.date and date.today() > self.date:
+        if self.due_back and date.today() > self.due_back:
             return True
         return False
 
@@ -47,7 +47,7 @@ class WeaponUnit(models.Model):
     )
 
     class Meta:
-        ordering = ['date']
+        ordering = ['due_back']
 
     def __str__(self):
         return f'{self.id} ({self.weapon.name} {self.operator})'
@@ -59,7 +59,6 @@ class Soldier(models.Model):
     last_name = models.CharField('Last name', max_length=100)
     # description = HTMLField(default="")
     description = models.TextField('Description', max_length=2000, default='')
-
     def display_weapons(self):
         return ', '.join(weapon.name for weapon in self.weapons.all()[:3])
 
@@ -71,7 +70,7 @@ class Soldier(models.Model):
         return reverse('soldier-detail', args=[str(self.id)])
 
     def __str__(self):
-        return f'{self.rank}. {self.last_name}, {self.first_name}, {self.date}'
+        return f'{self.rank}. {self.last_name}, {self.first_name}'
 
 
 

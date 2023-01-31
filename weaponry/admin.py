@@ -2,16 +2,16 @@ from django.contrib import admin
 from .models import Soldier, Weapon, WeaponUnit
 
 class WeaponUnitAdmin(admin.ModelAdmin):
-    list_display = ('weapon', 'status', 'date', 'operator')
-    list_editable = ('date', 'status')
-    list_filter = ('status', 'date')
+    list_display = ('weapon', 'status', 'due_back', 'operator')
+    list_editable = ('due_back', 'status')
+    list_filter = ('status', 'due_back')
     search_fields = ('id', 'weapon__name')
 
 
 
     fieldsets = (
         ('General', {'fields': ('id', 'weapon')}),
-        ('Availability', {'fields': ('status', 'date' 'operator')}),
+        ('Availability', {'fields': ('status', 'due_back' 'operator')}),
     )
 
 class WeaponsUnitInline(admin.TabularInline):
