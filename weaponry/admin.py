@@ -2,8 +2,8 @@ from django.contrib import admin
 from .models import Soldier, Weapon, WeaponUnit
 
 class WeaponUnitAdmin(admin.ModelAdmin):
-    list_display = ('weapon', 'status', 'due_back', 'operator')
-    list_editable = ('due_back', 'status')
+    list_display = ('id', 'weapon', 'status', 'due_back', 'operator')
+    list_editable = ('due_back', 'status', 'operator')
     list_filter = ('status', 'due_back')
     search_fields = ('id', 'weapon__name')
 
@@ -20,12 +20,11 @@ class WeaponsUnitInline(admin.TabularInline):
 
 class WeaponAdmin(admin.ModelAdmin):
     list_display = ('name', 'country')
-    inlines = [WeaponsUnitInline]
     can_delete = False
     extra = 0
 
 class SoldierAdmin(admin.ModelAdmin):
-    list_display = ('rank', 'last_name', 'id')
+    list_display = ('rank', 'last_name')
     inlines = [WeaponsUnitInline]
     model = Soldier
     extra = 0

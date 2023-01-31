@@ -11,7 +11,8 @@ from tinymce.models import HTMLField
 class Weapon(models.Model):
     name = models.CharField('Name', max_length=50)
     country = models.CharField('Country', max_length=50)
-    description = models.TextField('Description', max_length=1000, help_text='Weapon description')
+    # description = models.TextField('Description', max_length=1000, help_text='Weapon description')
+    description = HTMLField()
     cover = models.ImageField('Cover', upload_to='covers', null=True)
 
     def __str__(self):
@@ -34,15 +35,15 @@ class WeaponUnit(models.Model):
         return False
 
     LOAN_STATUS = (
-        ('t', 'Assigned'),
-        ('a', 'Not assigned'),
+        ('a', 'Assigned'),
+        ('n', 'Not assigned'),
     )
 
     status = models.CharField(
         max_length=1,
         choices=LOAN_STATUS,
         blank=True,
-        default='na',
+        default='n',
         help_text='Status',
     )
 
@@ -58,13 +59,16 @@ class Soldier(models.Model):
     first_name = models.CharField('Name', max_length=100)
     last_name = models.CharField('Last name', max_length=100)
     # description = HTMLField(default="")
-    description = models.TextField('Description', max_length=2000, default='')
+    # description = models.TextField('Description', max_length=2000, default='')
+    description = HTMLField()
+    assigned_weapons = models.ForeignKey('WeaponUnit', on_delete=models.SET_NULL, null=True, blank=True)
+    @property
     def display_weapons(self):
         return ', '.join(weapon.name for weapon in self.weapons.all()[:3])
 
-    display_weapons.short_descriptiopn = 'Weapons'
+    # display_weapons.short_descriptiopn = 'Weapons'
     class Meta:
-        ordering = ['rank', 'first_name', 'last_name']
+        ordering = ['rank', 'first_name', 'last_name', 'assigned_weapons']
 
     def get_absolute_url(self):
         return reverse('soldier-detail', args=[str(self.id)])

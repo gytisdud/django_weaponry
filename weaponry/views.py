@@ -29,7 +29,7 @@ def index(request):
     return render(request, 'index.html', context=context)
 
 def soldiers(request):
-    paginator = Paginator(Soldier.objects.all(), 3)
+    paginator = Paginator(Soldier.objects.all(), 12)
     page_number = request.GET.get('page')
     paged_soldiers = paginator.get_page(page_number)
     # soldiers = Soldier.objects.all()
