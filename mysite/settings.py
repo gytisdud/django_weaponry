@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'embed_video',
     'tinymce',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -38,7 +39,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
 ROOT_URLCONF = 'mysite.urls'
 
 TEMPLATES = [

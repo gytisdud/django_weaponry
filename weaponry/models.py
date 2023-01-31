@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.urls import reverse
 from tinymce.models import HTMLField
-
+from django.views.generic.edit import CreateView
 # Create your models here.
 
 class Weapon(models.Model):
@@ -68,7 +68,7 @@ class Soldier(models.Model):
 
     # display_weapons.short_descriptiopn = 'Weapons'
     class Meta:
-        ordering = ['rank', 'first_name', 'last_name', 'assigned_weapons']
+        ordering = ['rank', 'first_name', 'last_name']
 
     def get_absolute_url(self):
         return reverse('soldier-detail', args=[str(self.id)])
