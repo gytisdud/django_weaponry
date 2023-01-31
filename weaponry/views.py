@@ -1,11 +1,16 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Weapon, Soldier, WeaponUnit
-from django.shortcuts import render, get_object_or_404
-from django.views import generic
+from django.contrib import messages
+from django.contrib.auth.forms import User
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.paginator import Paginator
 from django.db.models import Q
-from django.views.generic.edit import CreateView
+from django.shortcuts import render, get_object_or_404, redirect, reverse
+from django.views import generic
+from django.views.decorators.csrf import csrf_protect
+from django.views.generic.edit import FormMixin, CreateView, UpdateView, DeleteView
+from django.contrib.auth.decorators import login_required
 
 def index(request):
     num_weapons = Weapon.objects.all().count()
@@ -53,6 +58,11 @@ def search(request):
                                         Q(description__icontains=query))
     return render(request, 'search.html', {'weapons': search_results, 'query':
         query})
+
+
+
+
+
 
 
 

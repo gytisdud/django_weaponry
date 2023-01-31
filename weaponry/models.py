@@ -6,7 +6,6 @@ from django.db import models
 from django.urls import reverse
 from tinymce.models import HTMLField
 
-
 # Create your models here.
 
 class Weapon(models.Model):
@@ -25,30 +24,30 @@ class Weapon(models.Model):
 class WeaponUnit(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, help_text='Unique ID of a weapon')
     weapon = models.ForeignKey('Weapon', on_delete=models.SET_NULL, null=True)
-    due_back = models.DateField('Will be available', null=True, blank=True)
+    date = models.DateField('Date', null=True, blank=True)
     # soldier = models.ForeignKey('Soldier', on_delete=models.SET_NULL, null=True)
     operator = models.ForeignKey('Soldier', on_delete=models.SET_NULL, null=True, blank=True)
     @property
     def is_overdue(self):
-        if self.due_back and date.today() > self.due_back:
+        if self.date and date.today() > self.date:
             return True
         return False
 
     LOAN_STATUS = (
-        ('t', 'Taken'),
-        ('a', 'Available'),
+        ('t', 'Assigned'),
+        ('a', 'Not assigned'),
     )
 
     status = models.CharField(
         max_length=1,
         choices=LOAN_STATUS,
         blank=True,
-        default='a',
+        default='na',
         help_text='Status',
     )
 
     class Meta:
-        ordering = ['due_back']
+        ordering = ['date']
 
     def __str__(self):
         return f'{self.id} ({self.weapon.name} {self.operator})'
@@ -72,7 +71,10 @@ class Soldier(models.Model):
         return reverse('soldier-detail', args=[str(self.id)])
 
     def __str__(self):
-        return f'{self.rank}. {self.last_name}, {self.first_name}'
+        return f'{self.rank}. {self.last_name}, {self.first_name}, {self.date}'
 
-# class AssignedWeapons(models.Model):
+
+
+
+
 

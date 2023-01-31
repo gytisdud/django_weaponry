@@ -1,18 +1,17 @@
 from django.contrib import admin
 from .models import Soldier, Weapon, WeaponUnit
 
-
-class WeaponInstanceAdmin(admin.ModelAdmin):
-    list_display = ('weapon', 'status', 'due_back')
-    list_editable = ('due_back', 'status')
-    list_filter = ('status', 'due_back')
+class WeaponUnitAdmin(admin.ModelAdmin):
+    list_display = ('weapon', 'status', 'date', 'operator')
+    list_editable = ('date', 'status')
+    list_filter = ('status', 'date')
     search_fields = ('id', 'weapon__name')
 
 
 
     fieldsets = (
         ('General', {'fields': ('id', 'weapon')}),
-        ('Availability', {'fields': ('status', 'due_back' 'operator')}),
+        ('Availability', {'fields': ('status', 'date' 'operator')}),
     )
 
 class WeaponsUnitInline(admin.TabularInline):
@@ -25,13 +24,17 @@ class WeaponAdmin(admin.ModelAdmin):
     can_delete = False
     extra = 0
 
+class SoldierAdmin(admin.ModelAdmin):
+    list_display = ('rank', 'last_name', 'id')
+    inlines = [WeaponsUnitInline]
+    model = Soldier
+    extra = 0
 
 
 
 
 # Register your models here.
 admin.site.register(Weapon, WeaponAdmin)
-admin.site.register(Soldier)
-admin.site.register(WeaponUnit)
-
+admin.site.register(Soldier, SoldierAdmin)
+admin.site.register(WeaponUnit, WeaponUnitAdmin)
 
