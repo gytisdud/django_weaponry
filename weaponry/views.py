@@ -63,14 +63,20 @@ def search(request):
 class WeaponByAdminCreateView(LoginRequiredMixin, CreateView):
     model = WeaponUnit
     fields = ('weapon', 'due_back', 'status', 'operator')
-    success_url = '/weaponry/add-weapon/new'
+    success_url = '/weaponry/'
     template_name = 'create_unit.html'
     def form_valid(self, form):
         form.instance.admin = self.request.user
         return super().form_valid(form)
 
-
-
+class WeaponByAdminDeleteView(LoginRequiredMixin, DeleteView):
+    model = WeaponUnit
+    fields = ('id', 'operator')
+    success_url = '/weaponry/'
+    template_name = 'delete_weapon.html'
+    def test_func(self):
+        weapon = self.get_object()
+        return self.request.user == weapon.admin
 
 
 
