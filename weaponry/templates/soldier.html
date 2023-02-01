@@ -1,40 +1,32 @@
-{% extends "base.html" %} {% load crispy_forms_tags %} {% block content %}
-<div class="container soldier">
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
 
+{% block content %}
+<div class="container soldier">
     <h4>{{ soldier.rank }}. {{ soldier.last_name }}, {{ soldier.first_name }}</h4>
     <hr/>
     <p>{{ soldier.description | safe }}</p>
+
     {% for weapon in soldier.weaponunit_set.all %}
     <hr>
-    <p class="
-{% if weapon.status == 'a' %}
-text-success
-{% elif weapon.status == 'n' %}
-text-danger
-{% else %}
-text-warning
-{% endif %}"><strong>
-        {{ weapon.get_status_display }}</strong>
+    <p class="{% if weapon.status == 'a' %}text-success{% elif weapon.status == 'n' %}text-danger{% else %}text-warning{% endif %}">
+        <strong>{{ weapon.get_status_display }}</strong>
     </p>
     <p class="text-light bg-dark">Weapon: {{ weapon.weapon.name }}</p>
     <p class="text-light bg-dark">Date: {{ weapon.due_back }}</p>
     <p class="text-light bg-dark"><strong>Weapon's serial number: </strong>{{ weapon.id }}</p>
     {% endfor %}
-    </hr>
 </div>
-</form>
-<div class="content-section">
-    <form method="POST">
-        {% csrf_token %}
-        <fieldset class="form-group">
-            <legend class="border-bottom mb-4">Delete a weapon</legend>
-        </fieldset>
-        <div class="form-group">
-            <button class="btn btn-outline-danger" type="submit">
-                Yes, delete
-            </button>
 
-        </div>
-    </form>
+<div class="content-section">
+    <ul>
+        {% for weapon in soldier.weaponunit_set.all %}
+            <li>
+                <a href="{% url 'delete-weapon' soldier.id weapon.id %}">
+                    <strong>{{ weapon.weapon.name }}</strong>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
 </div>
 {% endblock content %}

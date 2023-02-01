@@ -11,6 +11,7 @@ from django.views import generic
 from django.views.decorators.csrf import csrf_protect
 from django.views.generic.edit import FormMixin, CreateView, UpdateView, DeleteView
 from django.contrib.auth.decorators import login_required
+from django.urls import reverse_lazy
 
 def index(request):
     num_weapons = Weapon.objects.all().count()
@@ -69,14 +70,23 @@ class WeaponByAdminCreateView(LoginRequiredMixin, CreateView):
         form.instance.admin = self.request.user
         return super().form_valid(form)
 
+def delete_item(request, pk):
+    item = WeaponUnit.objects.get(id=pk)
+    if request.method == "POST":
+        item.delete()
+        return redirect("your_model_list")
+
 class WeaponByAdminDeleteView(LoginRequiredMixin, DeleteView):
     model = WeaponUnit
-    fields = ('id', 'operator')
-    success_url = '/weaponry/'
     template_name = 'delete_weapon.html'
+
     def test_func(self):
         weapon = self.get_object()
         return self.request.user == weapon.admin
+
+    def get_success_url(self):
+        soldier_id = self.kwargs['soldier_id']
+        return reverse_lazy('soldier', kwargs={'soldier_id': soldier_id})
 
 
 
