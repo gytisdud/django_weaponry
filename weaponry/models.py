@@ -43,15 +43,17 @@ class WeaponUnit(models.Model):
         max_length=1,
         choices=LOAN_STATUS,
         blank=True,
-        default='n',
+        default='a',
         help_text='Status',
     )
+
+    admin = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
 
     class Meta:
         ordering = ['due_back']
 
     def __str__(self):
-        return f'{self.id} ({self.weapon.name} {self.operator})'
+        return f'{self.id} ({self.weapon.name} {self.operator} )'
 
 
 class Soldier(models.Model):
@@ -61,7 +63,6 @@ class Soldier(models.Model):
     # description = HTMLField(default="")
     # description = models.TextField('Description', max_length=2000, default='')
     description = HTMLField()
-    assigned_weapons = models.ForeignKey('WeaponUnit', on_delete=models.SET_NULL, null=True, blank=True)
     @property
     def display_weapons(self):
         return ', '.join(weapon.name for weapon in self.weapons.all()[:3])

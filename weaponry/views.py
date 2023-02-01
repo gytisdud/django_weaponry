@@ -59,16 +59,15 @@ def search(request):
     return render(request, 'search.html', {'weapons': search_results, 'query':
         query})
 
+
 class WeaponByAdminCreateView(LoginRequiredMixin, CreateView):
     model = WeaponUnit
     fields = ('weapon', 'due_back', 'status', 'operator')
-    success_url = '/weaponry/adminweapons/'
-    template_name = 'admin_weapons.html'
-
+    success_url = '/weaponry/add-weapon/new'
+    template_name = 'create_unit.html'
     def form_valid(self, form):
-        form.instance.operator = self.request.user
+        form.instance.admin = self.request.user
         return super().form_valid(form)
-
 
 
 

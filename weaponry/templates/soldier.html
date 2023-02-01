@@ -1,17 +1,24 @@
-{% extends "base.html" %}
-{% block content %}
+{% extends "base.html" %} {% load crispy_forms_tags %} {% block content %}
 <div class="container soldier">
-<h4>{{ soldier.rank }}. {{ soldier.last_name }}, {{ soldier.first_name }}</h4>
-<hr/>
-<p>{{ soldier.description | safe }}</p>
-{% for weapon in weaponunit_set.all %}
-<hr>
-<p class="{% if weapon.status == 'n' %}text-success{% elif weapon.status == 'a'
-%}text-danger{% else %}text-warning{% endif %}">
-{{ weapon.get_status_display }}
-</p>
-<p class="text-muted"><strong>Id:</strong> {{ weapon.id }}</p>
-{% endfor %}
-</hr>
+    <h4>{{ soldier.rank }}. {{ soldier.last_name }}, {{ soldier.first_name }}</h4>
+    <hr/>
+    <p>{{ soldier.description | safe }}</p>
+    {% for weapon in soldier.weaponunit_set.all %}
+    <hr>
+    <p class="
+{% if weapon.status == 'a' %}
+text-success
+{% elif weapon.status == 'n' %}
+text-danger
+{% else %}
+text-warning
+{% endif %}"><strong>
+        {{ weapon.get_status_display }}</strong>
+    </p>
+    <p class="text-light bg-dark">Weapon: {{ weapon.weapon.name }}</p>
+    <p class="text-light bg-dark">Date: {{ weapon.due_back }}</p>
+    <p class="text-light bg-dark"><strong>Weapon's serial number: </strong>{{ weapon.id }}</p>
+    {% endfor %}
+    </hr>
 </div>
 {% endblock %}

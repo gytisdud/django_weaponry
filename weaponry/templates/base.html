@@ -38,6 +38,8 @@
       }
 
 
+
+
         </style>
         </head>
         <body>
@@ -65,7 +67,7 @@
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'soldiers' %}">Soldiers</a>
                         </li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'admin-weapons' %}">New Weapon Unit</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'add-weapon' %}">Add Weapon Unit</a></li>
                         {% if user.is_authenticated %}
                         <svg class="bi bi-person" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="currentColor"
                              xmlns="http://www.w3.org/2000/svg">

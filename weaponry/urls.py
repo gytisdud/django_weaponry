@@ -9,5 +9,6 @@ urlpatterns = [
     path('weapons/<int:pk>', views.WeaponDetailView.as_view(), name='weapon-detail'),
     path('search/', views.search, name='search'),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('adminweapons/assign', views.WeaponByAdminCreateView.as_view(), name='admin-weapons'),
+    path('add-weapon/', views.WeaponByAdminCreateView.as_view(), name='add-weapon'),
+
     ]
