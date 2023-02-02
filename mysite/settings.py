@@ -120,3 +120,4 @@ TINYMCE_DEFAULT_CONFIG = {'height': 360, 'width': 1120, 'cleanup_on_startup': Tr
                           'toolbar1': ''' fullscreen preview bold italic underline | fontselect, fontsizeselect | forecolor backcolor | alignleft alignright | aligncenter alignjustify | indent outdent | bullist numlist table | | link image media | codesample | ''',
                           'toolbar2': ''' visualblocks visualchars | charmap hr pagebreak nonbreaking anchor | code | ''',
                           'contextmenu': 'formats | link image', 'menubar': True, 'statusbar': True, }
+

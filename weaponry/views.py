@@ -12,6 +12,8 @@ from django.views.decorators.csrf import csrf_protect
 from django.views.generic.edit import FormMixin, CreateView, UpdateView, DeleteView
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import redirect
 
 def index(request):
     num_weapons = Weapon.objects.all().count()
@@ -29,6 +31,7 @@ def index(request):
     }
     return render(request, 'index.html', context=context)
 
+@login_required
 def soldiers(request):
     paginator = Paginator(Soldier.objects.all(), 12)
     page_number = request.GET.get('page')
@@ -39,12 +42,13 @@ def soldiers(request):
     }
     return render(request, 'soldiers.html', context=context)
 # Create your views here.
+
 def soldier(request, soldier_id):
     single_soldier = get_object_or_404(Soldier, pk=soldier_id)
     return render(request, 'soldier.html', {'soldier': single_soldier})
 
 
-class WeaponListView(generic.ListView):
+class WeaponListView(LoginRequiredMixin, generic.ListView):
     model = Weapon
     paginate_by = 6
     template_name = 'weapon_list.html'
@@ -70,11 +74,6 @@ class WeaponByAdminCreateView(LoginRequiredMixin, CreateView):
         form.instance.admin = self.request.user
         return super().form_valid(form)
 
-def delete_item(request, pk):
-    item = WeaponUnit.objects.get(id=pk)
-    if request.method == "POST":
-        item.delete()
-        return redirect("your_model_list")
 
 class WeaponByAdminDeleteView(LoginRequiredMixin, DeleteView):
     model = WeaponUnit
@@ -87,7 +86,6 @@ class WeaponByAdminDeleteView(LoginRequiredMixin, DeleteView):
     def get_success_url(self):
         soldier_id = self.kwargs['soldier_id']
         return reverse_lazy('soldier', kwargs={'soldier_id': soldier_id})
-
 
 
 

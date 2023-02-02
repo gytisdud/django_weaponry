@@ -1,6 +1,5 @@
 from django.urls import path, include
 from . import views
-from .views import delete_item, WeaponByAdminDeleteView
 
 urlpatterns = [
     path('', views.index, name='index'),
